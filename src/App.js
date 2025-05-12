@@ -1,25 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Index from './pages/nav/Index'
+import { useDispatch } from 'react-redux'
+import { Init } from './store/actions/authAction'
 
-function App() {
+export default function App() {
+  const dispatch = useDispatch()
+  React.useState(() => {
+    dispatch(Init())
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Index />
+    </>
+  )
 }
-
-export default App;
