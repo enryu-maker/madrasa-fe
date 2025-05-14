@@ -2,13 +2,18 @@ import React from 'react'
 import SideBar from '../../../components/Sidebar'
 import { image } from '../../../assets/Image'
 import { useSelector } from 'react-redux'
+import AddTeacher from '../modal/AddTeacher'
 
 export default function Teacher() {
     const madrasa = useSelector(state => state.reducer.madrasa)
+    const [show, setShow] = React.useState(false)
     return (
         <div className="bg-background min-h-screen flex font-Poppins">
             <SideBar />
             <main className="flex-1 h-screen overflow-y-scroll flex flex-col px-4 space-y-6">
+                {
+                    show && <AddTeacher setShow={setShow} />
+                }
                 <div className="flex flex-col sticky top-0 z-50 h-[80px] pt-4 bg-white justify-center items-end">
                     <h1 className="flex items-center text-xl font-Poppins font-medium">
                         <img
@@ -28,6 +33,9 @@ export default function Teacher() {
                         <p className=' font-Poppins font-normal text-sm text-gray-500'>View your teacher, check progress.</p>
                     </div>
                     <button
+                        onClick={() => {
+                            setShow(!show)
+                        }}
                         className="w-auto bg-primary border py-2 px-4 text-center flex justify-between items-center text-white "
                     >
                         Add Teacher

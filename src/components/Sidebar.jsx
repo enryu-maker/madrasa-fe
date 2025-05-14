@@ -18,9 +18,9 @@ export default function SideBar() {
 
     return (
         <div className="w-[20%] h-screen bg-white border-r flex flex-col items-center">
-            <h1 className="flex items-center self-start p-3 cursor-pointer text-2xl sm:text-3xl md:text-2xl font-Poppins">
+            <h1 className="flex items-center self-start p-3 cursor-pointer text-2xl sm:text-3xl md:text-4xl font-Poppins">
                 <img src={image.logo} className="h-[60px] pr-3" alt="logo" />
-                AlMadrasa
+                المدرسة
             </h1>
             <div className="space-y-2 w-[88%] mt-4 self-center">
                 {navItems.map((item) => (

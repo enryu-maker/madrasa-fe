@@ -378,3 +378,99 @@ export const addreport = (data, setLoading, setShow) => {
         }
     }
 }
+
+export const getTeacher = (setLoading) => {
+    return async (dispatch) => {
+        try {
+            await axiosIns.get(baseURL + '/v1/admin/get-teacher')
+                .then((res) => {
+                    dispatch({
+                        type: "GET_TEACHER",
+                        payload: res.data
+                    })
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    toast.error(err?.response?.data?.message || "Something went wrong!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                    setLoading(false);
+                });
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message || "An error occurred during login.", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setLoading(false);
+        }
+    };
+};
+
+export const createTeacher = (data, setLoading, setShow) => {
+    return async (dispatch) => {
+        try {
+            await axiosIns.post(baseURL + '/v1/admin/add-teacher', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then((res) => {
+                    toast.success(res?.data?.message || "Teacher created successfully!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                    dispatch(getTeacher(setLoading));
+                    setLoading(false);
+                    setShow(false);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    toast.error(err?.response?.data?.message || "Something went wrong!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                    setLoading(false);
+                });
+        } catch (error) {
+            console.error(error);
+            toast.error(error?.response?.data?.message || "An error occurred during creation.", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setLoading(false);
+        }
+    };
+};

@@ -3,7 +3,8 @@ const initialState = {
     madrasa: {},
     courses: [],
     student: [],
-    fees: []
+    fees: [],
+    teacher: []
 };
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -17,6 +18,8 @@ export default (state = initialState, action) => {
             return { ...state, student: action.payload };
         case 'GET_FEES':
             return { ...state, fees: action.payload };
+        case 'GET_TEACHER':
+            return { ...state, teacher: action.payload };
         default:
             return state;
     }
