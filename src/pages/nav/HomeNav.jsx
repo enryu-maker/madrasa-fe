@@ -16,6 +16,7 @@ export default function HomeNav() {
         dispatch(getCourses(setLoading))
         dispatch(getStudent(setLoading))
 
+
     }, [dispatch])
     return (
         <Routes>
