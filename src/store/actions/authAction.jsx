@@ -39,7 +39,7 @@ export const madarasaLogin = (data, setLoading, navigate) => {
                     });
                     console.log(res.data)
                     localStorage.setItem('access', res?.data?.access_token)
-                    navigate("dashboard")
+                    navigate("/dashboard")
                     setLoading(false);
                 })
                 .catch((err) => {
