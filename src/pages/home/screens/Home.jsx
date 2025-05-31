@@ -160,10 +160,10 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-wrap bg-white shadow-sm">
-                    <MetricCard title="Total Orders" value={120} />
+                    <MetricCard title="Total Students" value={120} />
                     <MetricCard title="Total Revenue" value="$15,000" />
-                    <MetricCard title="Menu Items" value={22} />
-                    <MetricCard title="Tables" value={5} />
+                    <MetricCard title="Total Course" value={22} />
+                    <MetricCard title="Total Teachers" value={5} />
                 </div>
 
                 <div className="flex w-full space-x-4">

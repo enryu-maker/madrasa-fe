@@ -6,12 +6,16 @@ import { getProfile } from '../../../store/actions/homeAction';
 import AddStudents from '../modal/AddStudents';
 import UpdateFees from '../modal/UpdateFees';
 import AddReport from '../modal/AddReport';
+import ViewStudents from '../modal/ViewStudent';
+import AddOrEditStudent from '../modal/ViewStudent';
 
 export default function Students() {
     const [loading, setLoading] = useState(false);
     const [addShow, setAddShow] = useState(false);
     const [FShow, setFShow] = useState(false);
     const [RShow, setRShow] = useState(false);
+    const [VShow, setVShow] = useState(false);
+
 
     const [currentCourse, setCurrentCourse] = useState({});
     const [currentStudent, setCurrentStudent] = useState({});
@@ -36,6 +40,9 @@ export default function Students() {
             <main className="flex-1 h-screen overflow-y-scroll flex flex-col px-4 space-y-6">
                 {
                     addShow && <AddStudents setShow={setAddShow} />
+                }
+                {
+                    VShow && <AddOrEditStudent setShow={setVShow} isEdit={true} studentData={currentStudent} />
                 }
                 {
                     FShow && <UpdateFees setShow={setFShow} course={currentCourse} student={currentStudent} />
@@ -117,7 +124,12 @@ export default function Students() {
                                             </button>
                                         </td>
                                         <td className="py-2 px-4">
-                                            <button className=" text-primary hover:underline underline-primary text-start py-1  rounded">
+                                            <button
+                                                onClick={() => {
+                                                    setVShow(true)
+                                                    setCurrentStudent(item)
+                                                }}
+                                                className=" text-primary hover:underline underline-primary text-start py-1  rounded">
                                                 view &#8599;
                                             </button>
                                         </td>

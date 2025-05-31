@@ -3,16 +3,24 @@ import SideBar from '../../../components/Sidebar'
 import { image } from '../../../assets/Image'
 import { useSelector } from 'react-redux'
 import AddTeacher from '../modal/AddTeacher'
+import AddOrEditTeacher from '../modal/ViewTeacher'
 
 export default function Teacher() {
     const madrasa = useSelector(state => state.reducer.madrasa)
+    const teacher = useSelector(state => state.reducer.teacher)
+
     const [show, setShow] = React.useState(false)
+    const [VShow, setVShow] = React.useState(false)
+    const [currentTeacher, setCurrentTeacher] = React.useState({})
     return (
         <div className="bg-background min-h-screen flex font-Poppins">
             <SideBar />
             <main className="flex-1 h-screen overflow-y-scroll flex flex-col px-4 space-y-6">
                 {
                     show && <AddTeacher setShow={setShow} />
+                }
+                {
+                    VShow && <AddOrEditTeacher setShow={setVShow} editData={currentTeacher} />
                 }
                 <div className="flex flex-col sticky top-0 z-50 h-[80px] pt-4 bg-white justify-center items-end">
                     <h1 className="flex items-center text-xl font-Poppins font-medium">
@@ -58,22 +66,31 @@ export default function Teacher() {
                                 <th className="py-2 px-4">Teacher ID.</th>
                                 <th className="py-2 px-4">Name</th>
                                 <th className="py-2 px-4">Designation</th>
-                                <th className="py-2 px-4">Mobile No.</th>
+                                <th className="py-2 px-4">Joining Date</th>
                                 <th className="py-2 px-4">View</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="bg-white border-b">
-                                <td className="py-2 px-4">12345</td>
-                                <td className="py-2 px-4">John Doe</td>
-                                <td className="py-2 px-4">10th Grade</td>
-                                <td className="py-2 px-4">1234567890</td>
-                                <td className="py-2 px-4">
-                                    <button className=" text-primary hover:underline underline-primary text-start py-1  rounded">
-                                        view &#8599;
-                                    </button>
-                                </td>
-                            </tr>
+                            {
+                                teacher?.data?.map((t, index) => (
+                                    <tr key={index} className="bg-white border-b">
+                                        <td className="py-2 px-4">{t.id}</td>
+                                        <td className="py-2 px-4">{t.name}</td>
+                                        <td className="py-2 px-4">{t.qualification}</td>
+                                        <td className="py-2 px-4">{t.date_of_joining}</td>
+                                        <td className="py-2 px-4">
+                                            <button
+                                                onClick={() => {
+                                                    setCurrentTeacher(t)
+                                                    setVShow(true)
+                                                }}
+                                                className=" text-primary hover:underline underline-primary text-start py-1  rounded">
+                                                view &#8599;
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                 </div>

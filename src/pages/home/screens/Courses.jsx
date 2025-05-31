@@ -1,20 +1,30 @@
 import React from 'react'
 import SideBar from '../../../components/Sidebar'
-import { image } from '../../../assets/Image'
 import { useSelector } from 'react-redux'
 import AddCourses from '../modal/AddCourses'
+import AddOrEditCourse from '../modal/ViewCourse'
 
 export default function Courses() {
     const [AShow, setAShow] = React.useState(false)
+    const [VShow, setVShow] = React.useState(false)
+    const [currentCourse, setCurrentCourse] = React.useState({})
+    const [searchTerm, setSearchTerm] = React.useState('')
+
     const madrasa = useSelector(state => state.reducer.madrasa)
     const courses = useSelector(state => state.reducer.courses)
+
+    // Filtered courses based on search term
+    const filteredCourses = courses?.data?.filter(course =>
+        course?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+
     return (
         <div className="bg-background min-h-screen flex font-Poppins">
             <SideBar />
             <main className="flex-1 h-screen overflow-y-scroll flex flex-col px-4 space-y-6">
-                {
-                    AShow && <AddCourses setShow={setAShow} />
-                }
+                {AShow && <AddCourses setShow={setAShow} />}
+                {VShow && <AddOrEditCourse setShow={setVShow} selectedCourse={currentCourse} />}
+
                 <div className="flex flex-col sticky top-0 z-50 h-[80px] pt-4 bg-white justify-center items-end">
                     <h1 className="flex items-center text-xl font-body font-medium">
                         <img
@@ -26,37 +36,43 @@ export default function Courses() {
                     </h1>
                     <p className="text-[12px] text-gray-700">{madrasa?.name}</p>
                 </div>
-                <div className=" w-full flex justify-between items-center  self-center">
-                    <div className="">
-                        <h1 className=' font-Poppins text-3xl font-medium'>
-                            Courses Dashboard
-                        </h1>
-                        <p className=' font-Poppins font-normal text-sm text-gray-500'>View your courses, check progress.</p>
+
+                <div className="w-full flex justify-between items-center self-center">
+                    <div>
+                        <h1 className='text-3xl font-medium'>Courses Dashboard</h1>
+                        <p className='text-sm text-gray-500'>View your courses, check progress.</p>
                     </div>
                     <button
-                        onClick={() => {
-                            setAShow(!AShow)
-                        }}
-                        className="w-auto bg-primary border py-2 px-4 text-center flex justify-between items-center text-white "
+                        onClick={() => setAShow(!AShow)}
+                        className="bg-primary py-2 px-4 text-white"
                     >
                         Add Course
                     </button>
                 </div>
-                <div className=" w-full flex justify-between items-center  self-center">
+
+                <div className="w-full flex justify-between items-center self-center">
                     <div className="flex items-center space-x-2">
                         <input
                             type="text"
                             placeholder="Search Courses"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             className="border py-2 px-4 w-[400px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
                         />
-                        <button className="bg-primary text-white py-2 px-4 ">Search</button>
+                        <button
+                            className="bg-primary text-white py-2 px-4"
+                            onClick={() => { }} // Optional, can remove or use for manual trigger
+                        >
+                            Search
+                        </button>
                     </div>
                 </div>
+
                 <div className="w-full flex flex-col items-center justify-center">
                     <table className="w-full text-sm text-left text-gray-500">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                             <tr>
-                                <th className="py-2 px-4">Course ID.</th>
+                                <th className="py-2 px-4">Course ID</th>
                                 <th className="py-2 px-4">Name</th>
                                 <th className="py-2 px-4">Fees</th>
                                 <th className="py-2 px-4">View</th>
@@ -64,20 +80,29 @@ export default function Courses() {
                         </thead>
                         <tbody>
                             {
-                                courses?.data?.map((item, index) => (
-                                    <tr className="bg-white border-b">
+                                filteredCourses?.length > 0 ? filteredCourses.map(item => (
+                                    <tr key={item.id} className="bg-white border-b">
                                         <td className="py-2 px-4">{item?.id}</td>
                                         <td className="py-2 px-4">{item?.name}</td>
                                         <td className="py-2 px-4">{item?.fee}</td>
                                         <td className="py-2 px-4">
-                                            <button className=" text-primary hover:underline underline-primary text-start py-1  rounded">
+                                            <button
+                                                onClick={() => {
+                                                    setCurrentCourse(item)
+                                                    setVShow(true)
+                                                }}
+                                                className="text-primary hover:underline text-start py-1 rounded"
+                                            >
                                                 view &#8599;
                                             </button>
                                         </td>
                                     </tr>
-                                ))
+                                )) : (
+                                    <tr>
+                                        <td colSpan="4" className="text-center py-4 text-gray-500">No courses found.</td>
+                                    </tr>
+                                )
                             }
-
                         </tbody>
                     </table>
                 </div>

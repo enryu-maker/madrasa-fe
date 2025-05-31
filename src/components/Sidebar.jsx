@@ -8,11 +8,11 @@ export default function SideBar() {
     const isActive = (path) => location.pathname === path;
 
     const navItems = [
-        { path: 'dashboard', label: 'Dashboard', icon: image.dashboard },
-        { path: 'students', label: 'Students', icon: image.user },
-        { path: 'teachers', label: 'Teachers', icon: image.teacher },
-        { path: 'courses', label: 'Courses', icon: image.book },
-        { path: 'fees', label: 'Fees', icon: image.wallet },
+        { path: '/', label: 'Dashboard', icon: image.dashboard },
+        { path: '/students', label: 'Students', icon: image.user },
+        { path: '/teachers', label: 'Teachers', icon: image.teacher },
+        { path: '/courses', label: 'Courses', icon: image.book },
+        { path: '/fees', label: 'Fees', icon: image.wallet },
 
     ];
 
