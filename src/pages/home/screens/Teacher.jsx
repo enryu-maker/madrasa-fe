@@ -8,10 +8,16 @@ import AddOrEditTeacher from '../modal/ViewTeacher'
 export default function Teacher() {
     const madrasa = useSelector(state => state.reducer.madrasa)
     const teacher = useSelector(state => state.reducer.teacher)
+    console.log(teacher?.data)
 
+    const [searchTerm, setSearchTerm] = React.useState('')
     const [show, setShow] = React.useState(false)
     const [VShow, setVShow] = React.useState(false)
     const [currentTeacher, setCurrentTeacher] = React.useState({})
+
+    const filteredCourses = teacher?.data?.filter(teacher =>
+        teacher?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     return (
         <div className="bg-background min-h-screen flex font-Poppins">
             <SideBar />
@@ -54,6 +60,8 @@ export default function Teacher() {
                         <input
                             type="text"
                             placeholder="Search Teachers"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             className="border py-2 px-4 w-[400px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                         <button className="bg-primary text-white py-2 px-4 ">Search</button>
@@ -72,7 +80,7 @@ export default function Teacher() {
                         </thead>
                         <tbody>
                             {
-                                teacher?.data?.map((t, index) => (
+                                filteredCourses?.length > 0 ? filteredCourses?.map((t, index) => (
                                     <tr key={index} className="bg-white border-b">
                                         <td className="py-2 px-4">{t.id}</td>
                                         <td className="py-2 px-4">{t.name}</td>
@@ -90,6 +98,12 @@ export default function Teacher() {
                                         </td>
                                     </tr>
                                 ))
+                                    :
+                                    <tr className="bg-white border-b">
+                                        <td colSpan="5" className="py-2 px-4 text-center text-gray-500">
+                                            No teachers found
+                                        </td>
+                                    </tr>
                             }
                         </tbody>
                     </table>

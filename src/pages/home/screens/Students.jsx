@@ -15,17 +15,17 @@ export default function Students() {
     const [FShow, setFShow] = useState(false);
     const [RShow, setRShow] = useState(false);
     const [VShow, setVShow] = useState(false);
-
+    const [searchTerm, setSearchTerm] = React.useState('')
 
     const [currentCourse, setCurrentCourse] = useState({});
     const [currentStudent, setCurrentStudent] = useState({});
 
-
-
-
-    const dispatch = useDispatch()
     const madrasa = useSelector(state => state.reducer.madrasa)
     const student = useSelector(state => state.reducer.student)
+
+    const filteredCourses = student?.data?.filter(student =>
+        student?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
 
     const MetricCard = ({ title, value }) => (
         <div className="w-full md:w-[25%] flex flex-col items-start px-4 py-6 border-r last:border-none">
@@ -86,6 +86,8 @@ export default function Students() {
                         <input
                             type="text"
                             placeholder="Search Students"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             className="border py-2 px-4 w-[400px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                         <button className="bg-primary text-white py-2 px-4 ">Search</button>
@@ -106,7 +108,7 @@ export default function Students() {
                         </thead>
                         <tbody>
                             {
-                                student?.data?.map((item, index) => (
+                                filteredCourses?.length > 0 ? filteredCourses?.map((item, index) => (
                                     <tr key={index} className="bg-white border-b">
                                         <td className="py-2 px-4">{item?.id}</td>
                                         <td className="py-2 px-4">{item?.name}</td>
@@ -145,6 +147,11 @@ export default function Students() {
                                         </td>
                                     </tr>
                                 ))
+                                    : (
+                                        <tr>
+                                            <td colSpan="4" className="text-center py-4 text-gray-500">No Student Data found.</td>
+                                        </tr>
+                                    )
                             }
 
                         </tbody>

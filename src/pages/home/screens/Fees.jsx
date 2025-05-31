@@ -5,14 +5,10 @@ import AddCourses from '../modal/AddCourses'
 import AddOrEditCourse from '../modal/ViewCourse'
 
 export default function Fees() {
-    const [AShow, setAShow] = React.useState(false)
-    const [VShow, setVShow] = React.useState(false)
-    const [currentCourse, setCurrentCourse] = React.useState({})
     const [searchTerm, setSearchTerm] = React.useState('')
 
     const madrasa = useSelector(state => state.reducer.madrasa)
     const fees = useSelector(state => state.reducer.fees)
-    console.log(fees)
 
     // Filtered courses based on search term
     const filteredCourses = fees?.filter(fees =>
