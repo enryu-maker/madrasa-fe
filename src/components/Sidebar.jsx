@@ -40,8 +40,19 @@ export default function SideBar() {
                         <span className="text-lg ">{item.label}</span>
                     </a>
                 ))}
-                {/* <hr /> */}
+                <hr />
+                <button
+                    onClick={() => {
+                        localStorage.clear();
+                        window.location.href = '/login';
+                    }}
+                    className="mt-auto text-start flex  text-red-500  rounded-md hover:bg-primary-dark transition-colors"
+                >
+                    <img src={image.logout} className="w-[22px] h-[22px] mr-2" alt="Logout" />
+                    Logout
+                </button>
             </div>
+
         </div>
     );
 }

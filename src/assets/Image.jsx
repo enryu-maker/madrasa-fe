@@ -9,6 +9,7 @@ export const image = {
     book: require('./image/book.png'),
     wallet: require('./image/wallet.png'),
     close: require('./image/close.png'),
+    logout: require('./image/logout.png'),
 
 
 }
