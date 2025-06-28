@@ -66,6 +66,7 @@ export default function Fees() {
                                 <th className="py-2 px-4">month</th>
                                 <th className="py-2 px-4">Amount</th>
                                 <th className="py-2 px-4">Mode</th>
+                                <th className="py-2 px-4">Donations</th>
                                 <th className="py-2 px-4">Action</th>
                             </tr>
                         </thead>
@@ -79,6 +80,7 @@ export default function Fees() {
                                         <td className="py-2 px-4">{item?.month}</td>
                                         <td className="py-2 px-4">{item?.amount}</td>
                                         <td className="py-2 px-4">{item?.mode}</td>
+                                        <td className="py-2 px-4">{item?.donations}</td>
                                         <td className="py-2 px-4">
                                             <button
                                                 onClick={() => {

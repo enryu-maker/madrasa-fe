@@ -14,7 +14,8 @@ export default function UpdateFees({
         "date_of_payment": "",
         "month": "",
         "amount": course?.fee,
-        "mode": ""
+        "mode": "",
+        "donations": "",
     })
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -143,6 +144,21 @@ export default function UpdateFees({
                             disabled
                             // onChange={(e) => setData({ ...data, date: e.target.value })}
                             className="h-12 w-full border-[1.5px] border-gray-200 px-2 rounded outline-none bg-gray-200 hover:border-2 hover:border-primary focus:border-primary transition"
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="mt-2">
+                    <div className="w-full space-y-1 font-Poppins">
+                        <label htmlFor="donation" className="text-sm md:text-base">
+                            Donation Amount <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="number"
+                            id="donation"
+                            value={data.donations}
+                            onChange={(e) => setData({ ...data, donations: e.target.value })}
+                            className="h-12 w-full border-[1.5px] border-gray-200 px-2 rounded outline-none hover:border-2 hover:border-primary focus:border-primary transition"
                             required
                         />
                     </div>
