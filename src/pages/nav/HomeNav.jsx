@@ -20,7 +20,7 @@ export default function HomeNav() {
     }, [dispatch])
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Home />} />
             <Route path="/students" element={<Students />} />
             <Route path="/teachers" element={<Teacher />} />
             <Route path="/courses" element={<Courses />} />

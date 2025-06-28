@@ -39,7 +39,8 @@ export const madarasaLogin = (data, setLoading, navigate) => {
                     });
                     console.log(res.data)
                     localStorage.setItem('access', res?.data?.access_token)
-                    window.location.reload('/');
+                    navigate('/dashboard');
+                    window.location.reload();
                     setLoading(false);
                 })
                 .catch((err) => {
