@@ -347,6 +347,7 @@ export const updateStudent = (studentId, data, setLoading, setShow) => {
                 }
             })
                 .then((res) => {
+                    console.log(res.data)
                     toast.success(res?.data?.message || "Student updated successfully!", {
                         position: "top-right",
                         autoClose: 5000,
