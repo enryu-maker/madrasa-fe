@@ -12,7 +12,6 @@ export default function AddOrEditStudent({ setShow, isEdit = false, studentData 
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('Select Course');
-    console.log(studentData)
     const [data, setData] = useState({
         name: "",
         dob: "",
@@ -29,13 +28,21 @@ export default function AddOrEditStudent({ setShow, isEdit = false, studentData 
     useEffect(() => {
         if (isEdit && studentData) {
             setData({
-                ...studentData,
+                name: studentData.name || "",
+                dob: studentData.dob || studentData.date_of_birth || "",
+                doa: studentData.doa || studentData.date_of_admission || "",
+                mobile_number: studentData.mobile_number || studentData.mobile || "",
+                adhar_card: studentData.adhar_card || studentData.addhar_number || "",
+                father_name: studentData.father_name || "",
+                mother_name: studentData.mother_name || "",
                 photo: null,
+                address: studentData.address || "",
                 course_id: studentData.course_id || studentData.course?.id || ""
             });
             setSelectedOption(studentData.course?.name || "Select Course");
         }
     }, [isEdit, studentData]);
+
 
     const handleSelect = (option) => {
         setData({ ...data, course_id: option.id });
@@ -101,12 +108,12 @@ export default function AddOrEditStudent({ setShow, isEdit = false, studentData 
                     <div className="flex flex-wrap gap-x-4 gap-y-4">
                         {[
                             { label: "Name", key: "name", type: "text", placeholder: "Full Name" },
-                            { label: "Date of Birth", key: "date_of_birth", type: "date" },
-                            { label: "Mobile", key: "mobile", type: "tel", placeholder: "Mobile Number" },
-                            { label: "Aadhar Number", key: "addhar_number", type: "number", placeholder: "Aadhar Number" },
+                            { label: "Date of Birth", key: "dob", type: "date" },
+                            { label: "Mobile", key: "mobile_number", type: "tel", placeholder: "Mobile Number" },
+                            { label: "Aadhar Number", key: "adhar_card", type: "number", placeholder: "Aadhar Number" },
                             { label: "Father Name", key: "father_name", type: "text", placeholder: "Father Name" },
                             { label: "Mother Name", key: "mother_name", type: "text", placeholder: "Mother Name" },
-                            { label: "Date of Admission", key: "date_of_admission", type: "date" },
+                            { label: "Date of Admission", key: "doa", type: "date" },
                         ].map(({ label, key, type, placeholder }) => (
                             <div key={key} className="w-[32%] flex flex-col">
                                 <label className="text-sm text-gray-700 mb-1 font-medium">{label} <span className="text-red-500">*</span></label>
